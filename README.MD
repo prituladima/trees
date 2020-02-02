@@ -5,8 +5,11 @@ Array of integers in ascending order:
 * How to calculate value in range
 
 todo 
-create tests for binary search
+create tests for binary search (int, dates)
 create pictures for binary search
+create slides in presentation with arrays 
+creates slides with usage
+
 
 
 
