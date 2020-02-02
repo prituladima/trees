@@ -7,7 +7,7 @@ Array of integers in ascending order:
 todo 
 create tests for binary search (int, dates)
 create pictures for binary search
-create slides in presentation with arrays 
+create slides in presentation with arrays and solution tree
 creates slides with usage
 
 
