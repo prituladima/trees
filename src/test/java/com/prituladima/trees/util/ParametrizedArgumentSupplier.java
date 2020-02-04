@@ -13,15 +13,21 @@ public class ParametrizedArgumentSupplier implements Supplier<Stream<Arguments>>
     public static final String UPPER_BOUND = "binary_search/upper_bound/";
     public static final String SUB_RANGE = "binary_search/sub_range/";
 
+    public static final String DIJKSTRA = "heap/dijkstra/";
+
     private static final String BASE = System.getProperty("user.dir") + "/src/test/";
 
     private static Map<String, ParametrizedArgumentSupplier> suppliers;
 
     public static ParametrizedArgumentSupplier supplier(String type) {
         suppliers = new HashMap<>();
+
         suppliers.computeIfAbsent(LOWER_BOUND, key -> new ParametrizedArgumentSupplier(LOWER_BOUND));
         suppliers.computeIfAbsent(UPPER_BOUND, key -> new ParametrizedArgumentSupplier(UPPER_BOUND));
         suppliers.computeIfAbsent(SUB_RANGE, key -> new ParametrizedArgumentSupplier(SUB_RANGE));
+
+        suppliers.computeIfAbsent(DIJKSTRA, key -> new ParametrizedArgumentSupplier(DIJKSTRA));
+
         return suppliers.get(type);
     }
 
