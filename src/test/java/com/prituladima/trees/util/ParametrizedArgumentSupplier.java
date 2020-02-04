@@ -10,6 +10,8 @@ import java.util.stream.Stream;
 public class ParametrizedArgumentSupplier implements Supplier<Stream<Arguments>> {
 
     public static final String LOWER_BOUND = "binary_search/lower_bound/";
+    public static final String UPPER_BOUND = "binary_search/upper_bound/";
+    public static final String SUB_RANGE = "binary_search/sub_range/";
 
     private static final String BASE = System.getProperty("user.dir") + "/src/test/";
 
@@ -17,7 +19,9 @@ public class ParametrizedArgumentSupplier implements Supplier<Stream<Arguments>>
 
     public static ParametrizedArgumentSupplier supplier(String type) {
         suppliers = new HashMap<>();
-        suppliers.computeIfAbsent(type, key -> new ParametrizedArgumentSupplier(type));
+        suppliers.computeIfAbsent(LOWER_BOUND, key -> new ParametrizedArgumentSupplier(LOWER_BOUND));
+        suppliers.computeIfAbsent(UPPER_BOUND, key -> new ParametrizedArgumentSupplier(UPPER_BOUND));
+        suppliers.computeIfAbsent(SUB_RANGE, key -> new ParametrizedArgumentSupplier(SUB_RANGE));
         return suppliers.get(type);
     }
 
