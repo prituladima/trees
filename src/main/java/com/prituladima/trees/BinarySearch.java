@@ -13,7 +13,7 @@ public class BinarySearch {
 
         while (high - low > 1) {
             int middle = low + (high - low) / 2;
-            if (fromElement <= array[middle]){
+            if (fromElement <= array[middle]) {
                 high = middle;
             } else {
                 low = middle;
@@ -41,7 +41,7 @@ public class BinarySearch {
     }
 
 
-    public int rangeSize(int[] array, int fromElement, int toElement){
+    public int rangeSize(int[] array, int fromElement, int toElement) {
         return lowerBound(array, toElement) - lowerBound(array, fromElement);
     }
 
