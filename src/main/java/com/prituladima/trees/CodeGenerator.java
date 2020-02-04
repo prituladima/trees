@@ -4,10 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class CodeGenerator {
     public static void main(String[] args) throws IOException {
@@ -15,18 +12,18 @@ public class CodeGenerator {
         PrintWriter  writer = new PrintWriter(new FileWriter("Arrays.txt"));
 
         Random rand = new Random();
-        int n = 200_000;
+        int n = 300_000;
 //        int n = 10;
         writer.print(n);
         writer.print('\n');
         writer.print('\n');
 
 
-        List<Integer> res = new ArrayList<>();
+        int[] res = new int[n];
         for (int i = 0; i < n; i++) {
-            res.add(rand.nextInt(10000));
+            res[i] = rand.nextInt(10000);
         }
-        res.sort(Comparator.naturalOrder());
+        Arrays.sort(res);
         for (Integer re : res) {
             writer.print(re);
             writer.print(' ');
@@ -36,12 +33,16 @@ public class CodeGenerator {
         writer.print('\n');
         writer.print('\n');
 
-        int q = 200_000;
+        int q = 300_000;
         writer.print(q);
         writer.print('\n');
         writer.print('\n');
+        BinarySearch binarySearch  = new BinarySearch();
         for (int i = 0; i < q; i++) {
-            writer.print(rand.nextInt(10000));
+            int newVal = rand.nextInt(10000);
+            writer.print(newVal);
+            writer.print(' ');
+            writer.print(binarySearch.lowerBound(res, newVal));
             writer.print('\n');
         }
 
