@@ -1,30 +1,44 @@
 package com.prituladima.trees;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class ShortestPath {
 
-    public static int[] dijkstra(int from, Map<Integer, IntIntPair> graph){
-        int[] costs = new int[graph.size()];
-        Arrays.fill(costs, Integer.MAX_VALUE);
-        boolean[] used = new boolean[graph.size()];
+    public static int[] dijkstra(int source, Map<Integer, List<Node>> graph){
+        //Answer
+        int[] ans = new int[graph.size()];
+        //We put Integer.MAX_VALUE as big value
+        Arrays.fill(ans, Integer.MAX_VALUE);
 
-        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();
-        priorityQueue.add(from);
-        used[from] = false;
-        costs[from] = 0;
+        //Used
+        boolean[] used = new boolean[graph.size()];
+        Arrays.fill(used, false);
+
+
+        PriorityQueue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparing(Node::getCost));
+        priorityQueue.add(new Node(source, 0));
+//        used[source] = true;
+        ans[source] = 0;
 
         while (!priorityQueue.isEmpty()){
-            int cur = priorityQueue.remove();
+            int from = priorityQueue.remove().getTo();
 
+            used[from] = true;
 
-
+            for (Node node : graph.get(from)) {
+                int to = node.getTo();
+                int toCost = node.getCost();
+                if(!used[to]){
+                    //Relaxation
+                    ans[to] = Math.min(ans[to], ans[from] + toCost);
+                    priorityQueue.add(new Node(to, ans[to]));
+                }
+            }
         }
 
-
-        return costs;
+        return ans;
     }
+
+
 
 }
