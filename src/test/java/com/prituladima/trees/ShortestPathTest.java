@@ -6,6 +6,8 @@ import org.junit.jupiter.params.provider.Arguments;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
@@ -20,42 +22,61 @@ public class ShortestPathTest {
 
     @ParameterizedTest
     @VariableSource("ARGUMENTS")
-    void test_sub_range(File testCaseFile) throws FileNotFoundException {
+    void test_shortest_path(File testCaseFile) throws FileNotFoundException {
         try (Scanner inScanner = new Scanner(testCaseFile)) {
 
-            int size = inScanner.nextInt();
 
-            int[] array = new int[size];
+            Graph<Integer> graph = new Graph<>();
 
-            for (int j = 0; j < size; j++) {
-                array[j] = inScanner.nextInt();
+            int vertexCount = inScanner.nextInt();
+            int edgeCount = inScanner.nextInt();
+            boolean isDirected = inScanner.nextBoolean();
+
+            for (int i = 0; i < vertexCount; i++) {
+                graph.put(i, new LinkedHashSet<>());
             }
 
-            int amountOfRequests = inScanner.nextInt();
+            for (int i = 0; i < edgeCount; i++) {
+                int from = inScanner.nextInt();
+                int to = inScanner.nextInt();
+                int cost = inScanner.nextInt();
 
-            int[] fromInclusive = new int[amountOfRequests];
-            int[] toExclusive = new int[amountOfRequests];
-            int[] expectedRangeSize = new int[amountOfRequests];
-
-            for (int j = 0; j < amountOfRequests; j++) {
-                fromInclusive[j] = inScanner.nextInt();
-                toExclusive[j] = inScanner.nextInt();
-                expectedRangeSize[j] = inScanner.nextInt();
+                graph.get(from).add(new Node<>(to, cost));
+                if (!isDirected) {
+                    graph.get(to).add(new Node<>(from, cost));
+                }
             }
 
-            test_sub_range(size, array, amountOfRequests, fromInclusive, toExclusive, expectedRangeSize);
+            int source = inScanner.nextInt();
+
+            int[] expectedCosts = new int[vertexCount];
+            for (int i = 0; i < vertexCount; i++) {
+                expectedCosts[i] = inScanner.nextInt();
+            }
+
+            test_shortest_path(source, graph, expectedCosts);
 
         }
     }
 
 
-    void test_sub_range(int size, int[] sortedArray, int amountOfRequests, int[] fromInclusive, int[] toExclusive, int[] expectedIndexes) {
-        assertTimeout(ofSeconds(1), () -> {
-            BinarySearch binarySearch = new BinarySearch();
-            for (int i = 0; i < amountOfRequests; i++) {
-                assertEquals(expectedIndexes[i], binarySearch.rangeSize(sortedArray, fromInclusive[i], toExclusive[i]));
-            }
-        });
+    void test_shortest_path(int source, Graph<Integer> graph, int[] expectedCosts) {
+        ShortestPath shortestPath = new ShortestPath();
+
+        int[] actualCosts = shortestPath.dijkstra(source, graph);
+
+
+
+        System.out.println("Dijkstra test:");
+        System.out.println("Expected:");
+        System.out.println(Arrays.toString(expectedCosts));
+        System.out.println("Actual:");
+        System.out.println(Arrays.toString(actualCosts));
+
+        assertEquals(expectedCosts.length, actualCosts.length);
+        for (int i = 0; i < expectedCosts.length; i++) {
+            assertEquals(expectedCosts[i], actualCosts[i]);
+        }
     }
 
 }

@@ -1,16 +1,16 @@
 package com.prituladima.trees;
 
-public class Node {
+public class Node<T> {
 
-    private Integer to;
+    private T to;
     private Integer cost;
 
-    public Node(Integer to, Integer cost) {
+    public Node(T to, Integer cost) {
         this.to = to;
         this.cost = cost;
     }
 
-    public Integer getTo() {
+    public T getTo() {
         return to;
     }
 
