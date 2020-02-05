@@ -14,6 +14,7 @@ public class ParametrizedArgumentSupplier implements Supplier<Stream<Arguments>>
     public static final String SUB_RANGE = "binary_search/sub_range/";
 
     public static final String DIJKSTRA = "heap/dijkstra/";
+    public static final String KRUSKAL = "djus/kruskal/";
 
     private static final String BASE = System.getProperty("user.dir") + "/src/test/";
 
@@ -27,6 +28,7 @@ public class ParametrizedArgumentSupplier implements Supplier<Stream<Arguments>>
         suppliers.computeIfAbsent(SUB_RANGE, key -> new ParametrizedArgumentSupplier(SUB_RANGE));
 
         suppliers.computeIfAbsent(DIJKSTRA, key -> new ParametrizedArgumentSupplier(DIJKSTRA));
+        suppliers.computeIfAbsent(KRUSKAL, key -> new ParametrizedArgumentSupplier(KRUSKAL));
 
         return suppliers.get(type);
     }
