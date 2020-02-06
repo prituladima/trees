@@ -43,5 +43,6 @@ Pictures was build with [this tool](https://graphonline.ru/)
 http://graphonline.ru/?graph=ScQtPsvwRCtxrIhQ
 
 
-
+BIT Naive implementation
+https://www.youtube.com/watch?v=v_wj_mOAlig
  
