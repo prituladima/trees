@@ -10,9 +10,9 @@ public class TestGeneratorGenerator {
     public static void main(String[] args) throws IOException {
 
 
-        int arraySizeX = 100;
-        int arraySizeY = 200;
-        int queryAmount = 150;
+        int arraySizeX = 2_000;
+        int arraySizeY = 2_000;
+        int queryAmount = 100_000;
         int bound = 10;
         int delta = 10;
 

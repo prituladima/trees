@@ -12,7 +12,7 @@ public class BIT2D {
         this.arraySizeY = arraySizeY;
     }
 
-    public void add(int xx, int yy, int val) {
+    public void add(int xx, int yy, long val) {
         for (int x = xx; x < arraySizeX; x = x | (x + 1)) {
             for (int y = yy; y < arraySizeY; y = y | (y + 1)) {
                 value[x][y] += val;
