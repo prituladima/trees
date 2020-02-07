@@ -10,26 +10,32 @@ public class TestGeneratorGenerator {
     public static void main(String[] args) throws IOException {
 
 
-        int arraySize = 400_000;
-        int queryAmount = 400_000;
-        int bound = 100000;
-        int delta = 100000;
+        int arraySizeX = 100;
+        int arraySizeY = 200;
+        int queryAmount = 150;
+        int bound = 10;
+        int delta = 10;
 
 
         PrintWriter writer = new PrintWriter(new FileWriter("Arrays.txt"));
 
         Random rand = new Random();
 
-        writer.print(arraySize);
+        writer.print(arraySizeX);
+        writer.print(' ');
+        writer.print(arraySizeY);
         writer.print('\n');
 
-        BIT bit = new BIT(arraySize);
+        BIT2D bit = new BIT2D(arraySizeX, arraySizeY);
 
-        for (int i = 0; i < arraySize; i++) {
-            int val = rand.nextInt(bound);
-            writer.print(val);
-            writer.print(' ');
-            bit.add(i, val);
+        for (int i = 0; i < arraySizeX; i++) {
+            for (int j = 0; j < arraySizeY; j++) {
+                int val = rand.nextInt(bound);
+                writer.print(val);
+                writer.print(' ');
+                bit.add(i, j, val);
+            }
+            writer.print('\n');
         }
 
         writer.print('\n');
@@ -43,33 +49,50 @@ public class TestGeneratorGenerator {
         for (int i = 0; i < queryAmount; i++) {
             if (rand.nextBoolean()) {
 
-                int L = rand.nextInt(arraySize);
-                int R = rand.nextInt(arraySize);
+                int X1 = rand.nextInt(arraySizeX);
+                int X2 = rand.nextInt(arraySizeX);
 
-                if (R < L) {
-                    int buf = L;
-                    L = R;
-                    R = buf;
+                int Y1 = rand.nextInt(arraySizeY);
+                int Y2 = rand.nextInt(arraySizeY);
+
+                if (X2 < X1) {
+                    int buf = X1;
+                    X1 = X2;
+                    X2 = buf;
+                }
+
+                if (Y2 < Y1) {
+                    int buf = Y1;
+                    Y1 = Y2;
+                    Y2 = buf;
                 }
 
                 writer.print('S');
 
                 writer.print(' ');
 
-                writer.print(L);
+                writer.print(X1);
 
                 writer.print(' ');
 
-                writer.print(R);
+                writer.print(X2);
 
                 writer.print(' ');
 
-                writer.print(bit.get(L, R));
+                writer.print(Y1);
+
+                writer.print(' ');
+
+                writer.print(Y2);
+
+                writer.print(' ');
+
+                writer.print(bit.get(X1, X2, Y1, Y2));
 
                 writer.print('\n');
-            }
-            else {
-                int I = rand.nextInt(arraySize);
+            } else {
+                int I = rand.nextInt(arraySizeX);
+                int J = rand.nextInt(arraySizeY);
                 int V = rand.nextInt(delta);
 
                 writer.print('M');
@@ -80,12 +103,16 @@ public class TestGeneratorGenerator {
 
                 writer.print(' ');
 
+                writer.print(J);
+
+                writer.print(' ');
+
                 writer.print(V);
 
 //                writer.print(' ');
 
 //                writer.print(bit.get(L, R));
-                bit.add(I, V);
+                bit.add(I, J, V);
 
                 writer.print('\n');
 
