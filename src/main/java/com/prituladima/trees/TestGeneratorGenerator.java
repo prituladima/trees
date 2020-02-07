@@ -9,58 +9,87 @@ import java.util.*;
 public class TestGeneratorGenerator {
     public static void main(String[] args) throws IOException {
 
+
+        int arraySize = 400_000;
+        int queryAmount = 400_000;
+        int bound = 100000;
+        int delta = 100000;
+
+
         PrintWriter writer = new PrintWriter(new FileWriter("Arrays.txt"));
 
         Random rand = new Random();
-        int n = 1_000;
-        int m = 1_000;
-//        int n = 10;
-        writer.print(n);
-        writer.print('\n');
+
+        writer.print(arraySize);
         writer.print('\n');
 
+        BIT bit = new BIT(arraySize);
 
-        int[][] res = new int[n][m];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; i < m; i++) {
-                res[i][j] = rand.nextInt(10000);
-            }
-        }
-//        Arrays.sort(res);
-        for (int[] re : res) {
-            writer.print(re);
+        for (int i = 0; i < arraySize; i++) {
+            int val = rand.nextInt(bound);
+            writer.print(val);
             writer.print(' ');
+            bit.add(i, val);
         }
 
         writer.print('\n');
         writer.print('\n');
         writer.print('\n');
 
-        int q = 300_000;
-        writer.print(q);
+        writer.print(queryAmount);
         writer.print('\n');
         writer.print('\n');
-        BinarySearch binarySearch = new BinarySearch();
-        for (int i = 0; i < q; i++) {
-            int newVal1 = rand.nextInt(10000);
-            int newVal2 = rand.nextInt(10000);
 
-            if (newVal2 < newVal1) {
-                int buf = newVal1;
-                newVal1 = newVal2;
-                newVal2 = buf;
+        for (int i = 0; i < queryAmount; i++) {
+            if (rand.nextBoolean()) {
+
+                int L = rand.nextInt(arraySize);
+                int R = rand.nextInt(arraySize);
+
+                if (R < L) {
+                    int buf = L;
+                    L = R;
+                    R = buf;
+                }
+
+                writer.print('S');
+
+                writer.print(' ');
+
+                writer.print(L);
+
+                writer.print(' ');
+
+                writer.print(R);
+
+                writer.print(' ');
+
+                writer.print(bit.get(L, R));
+
+                writer.print('\n');
             }
+            else {
+                int I = rand.nextInt(arraySize);
+                int V = rand.nextInt(delta);
 
-            writer.print(newVal1);
+                writer.print('M');
 
-            writer.print(' ');
-            writer.print(newVal2);
-            writer.print(' ');
+                writer.print(' ');
 
-//            writer.print(binarySearch.upperBound(res, newVal));
-//            writer.print(binarySearch.lowerBound(res, newVal));
-            writer.print(binarySearch.rangeSize(res[0], newVal1, newVal2));
-            writer.print('\n');
+                writer.print(I);
+
+                writer.print(' ');
+
+                writer.print(V);
+
+//                writer.print(' ');
+
+//                writer.print(bit.get(L, R));
+                bit.add(I, V);
+
+                writer.print('\n');
+
+            }
         }
 
         writer.close();

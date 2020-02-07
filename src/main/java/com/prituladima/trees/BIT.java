@@ -13,6 +13,12 @@ public class BIT {
             return 0;
         }
         return get(to) - get(from - 1);
+
+//        long result = 0L;
+//        for(int i = from; i <= to; i++){
+//            result += value[i];
+//        }
+//        return result;
     }
 
     private long get(int to) {
@@ -25,6 +31,7 @@ public class BIT {
     }
 
     public void add(int at, long value) {
+//        this.value[at] += value;
         while (at < this.value.length) {
             this.value[at] += value;
             at = at | (at + 1);

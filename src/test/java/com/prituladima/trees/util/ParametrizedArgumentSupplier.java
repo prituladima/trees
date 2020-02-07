@@ -16,6 +16,11 @@ public class ParametrizedArgumentSupplier implements Supplier<Stream<Arguments>>
     public static final String DIJKSTRA = "heap/dijkstra/";
     public static final String KRUSKAL = "djus/kruskal/";
 
+    public static final String BIT1D = "BIT/1d/";
+    public static final String BIT2D = "BIT/2d/";
+
+
+
     private static final String BASE = System.getProperty("user.dir") + "/src/test/";
 
     private static Map<String, ParametrizedArgumentSupplier> suppliers;
@@ -29,6 +34,9 @@ public class ParametrizedArgumentSupplier implements Supplier<Stream<Arguments>>
 
         suppliers.computeIfAbsent(DIJKSTRA, key -> new ParametrizedArgumentSupplier(DIJKSTRA));
         suppliers.computeIfAbsent(KRUSKAL, key -> new ParametrizedArgumentSupplier(KRUSKAL));
+
+        suppliers.computeIfAbsent(BIT1D, key -> new ParametrizedArgumentSupplier(BIT1D));
+        suppliers.computeIfAbsent(BIT2D, key -> new ParametrizedArgumentSupplier(BIT2D));
 
         return suppliers.get(type);
     }
